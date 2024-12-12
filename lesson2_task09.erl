@@ -3,11 +3,11 @@
 
 pack([]) -> [];
 pack([H | T]) -> 
-    {Group, Rest} = span(fun(X) -> X == H end, T),
+    {Group, Rest} = group(H, T),
     [[H | Group] | pack(Rest)].
 
-span(_, []) -> {[], []};
-span(Pred, [H | T]) when Pred(H) -> 
-    {Group, Rest} = span(Pred, T),
+group(_, []) -> {[], []};
+group(H, [H | T]) -> 
+    {Group, Rest} = group(H, T),
     {[H | Group], Rest};
-span(_, List) -> {[], List}.
+group(_, List) -> {[], List}.
