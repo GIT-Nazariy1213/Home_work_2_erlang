@@ -2,4 +2,8 @@
 -export([encode/1]).
 
 encode(List) -> 
-    lists:map(fun(X) -> {length(X), hd(X)} end, lesson2_task09:pack(List)).
+    encode_packed(lesson2_task09:pack(List)).
+
+encode_packed([]) -> [];
+encode_packed([[H | T] | Rest]) -> 
+    [{length([H | T]), H} | encode_packed(Rest)].
